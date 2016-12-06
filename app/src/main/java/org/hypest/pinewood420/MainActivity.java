@@ -15,7 +15,12 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (savedInstanceState != null) {
+            count = savedInstanceState.getInt("COUNTER");
+        }
+        
         final TextView countView = (TextView) findViewById(R.id.textView);
+        countView.setText("Count: " + count);
 
         final Button countUp = (Button) findViewById(R.id.button);
         countUp.setOnClickListener(new View.OnClickListener() {
@@ -25,5 +30,11 @@ public class MainActivity extends Activity {
                 countView.setText("Count: " + count);
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("COUNTER", count);
     }
 }
